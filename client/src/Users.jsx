@@ -11,6 +11,12 @@ const Users = () => {
     .catch(err => console.log(err))
   }, []);
 
+  const handleDelete =(e) => {
+    axios.delete(`http://localhost:3001/deleteuser/${e}`)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+
 
   return (
     <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
@@ -29,12 +35,13 @@ const Users = () => {
           <tbody>
             {users.map((user, index) => (
               <tr key={index}>
+                <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.age}</td>
                 <td>
                 <Link to={`/update/${user._id}`} className="btn btn-success"> Update </Link>
-                    <button className="btn btn-danger">Delete</button>
+                    <button className="btn btn-danger" onClick={(e) => handleDelete(user._id)}>Delete</button>
 
                 </td>
                 

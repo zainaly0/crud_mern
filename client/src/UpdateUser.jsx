@@ -4,9 +4,9 @@ import axios from 'axios'
 
 const UpdateUser = () => {
   const {id} = useParams()
-  const[name, setName] = useState()
-  const[email, setEmail] = useState()
-  const[age, setAge] = useState()
+  const[name, setName] = useState("")
+  const[email, setEmail] = useState("")
+  const[age, setAge] = useState("")
   const navigate = useNavigate()
 
   useEffect(() =>{
@@ -22,10 +22,12 @@ const UpdateUser = () => {
 
   const Update = (e) =>{
     e.preventDefault()
-    axios.put('http://localhost:3001/updateUser/'+id, {name, email, age})
-    .then(result => console.log(result))
+    axios.put(`http://localhost:3001/updateUser/${id}`, {name, email, age})
+    .then(result => {
+      console.log("result: ",result)
+      navigate('/')
+    })
     .catch(err => console.log(err))
-    navigate('/')
   }
 
   return (
@@ -38,12 +40,12 @@ const UpdateUser = () => {
             <input type="text" placeholder='enter name' className='form-control' value={name} onChange={e => setName(e.target.value)}/>
           </div>
           <div className='mb-2'>
-            <label htmlFor="">Name</label>
-            <input type="text" placeholder='enter name' className='form-control' value={email} onChange={e => setName(e.target.value)}/>
+            <label htmlFor="">Email</label>
+            <input type="text" placeholder='enter email' className='form-control' value={email} onChange={e => setEmail(e.target.value)}/>
           </div>
           <div className='mb-2'>
-            <label htmlFor="">Name</label>
-            <input type="text" placeholder='enter name' className='form-control' value={age} onChange={e => setName(e.target.value)}/>
+            <label htmlFor="">Age</label>
+            <input type="text" placeholder='enter age' className='form-control' value={age} onChange={e => setAge(e.target.value)}/>
           </div>
           <button className='btn btn-success'>Update</button>
       </form>
